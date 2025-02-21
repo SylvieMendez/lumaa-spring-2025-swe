@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { pool } from './db';
+import pool from '../db';
 
 export const getTasks = async (req: Request, res: Response) => {
     const userId = req.user?.userId;

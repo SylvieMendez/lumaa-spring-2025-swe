@@ -1,7 +1,7 @@
 import express from 'express';
-import { login, register } from './authController';
-import { authenticateToken } from './middleware';
-import { createTask, deleteTask, getTasks, updateTask } from './taskController';
+import { login, register } from './Controllers/authController';
+import { createTask, deleteTask, getTasks, updateTask } from './Controllers/taskController';
+import { authenticateToken } from './Middleware/middleware';
 
 const app = express();
 app.use(express.json());
