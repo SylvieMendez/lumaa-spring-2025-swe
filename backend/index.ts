@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 import { login, register } from './Controllers/authController';
 import { createTask, deleteTask, getTasks, updateTask } from './Controllers/taskController';

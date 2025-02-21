@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import pool from '../db';
+import { AuthenticatedRequest } from '../types';
 
-export const getTasks = async (req: Request, res: Response) => {
+export const getTasks = async (req: AuthenticatedRequest, res: Response) => {
     const userId = req.user?.userId;
     const result = await pool.query('SELECT * FROM tasks WHERE userId = $1', [userId]);
     res.json(result.rows);

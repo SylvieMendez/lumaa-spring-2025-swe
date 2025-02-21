@@ -2,8 +2,9 @@ import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import pool from '../db';
+import { AuthenticatedRequest } from '../types';
 
-export const register = async (req: Request, res: Response) => {
+export const register = async (req: AuthenticatedRequest, res: Response) => {
     const { username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await pool.query(

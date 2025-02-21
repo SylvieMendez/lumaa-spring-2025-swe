@@ -8,7 +8,9 @@ declare module 'express-serve-static-core' {
 }
 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers['authorization'];
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    
     if (!token) return res.status(401).json({ message: 'Access denied' });
 
     jwt.verify(token, process.env.JWT_SECRET!, (err, user) => {
