@@ -5,8 +5,18 @@ import { createTask, deleteTask, getTasks, updateTask } from './Controllers/task
 import { authenticateToken } from './Middleware/middleware';
 
 const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:3000', // Allow requests from this origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // Allow cookies and credentials
+}));
+
+// Handle preflight requests for all routes
+app.options('*', cors());
+
 app.use(express.json());
-app.use(cors());
 
 app.post('/auth/register', register);
 app.post('/auth/login', login);

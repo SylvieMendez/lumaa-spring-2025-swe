@@ -10,12 +10,14 @@ const Register: React.FC = () => {
 
     const handleRegister = async () => {
         try {
-            await axios.post('http://localhost:5000/auth/register', {
+            const response = await axios.post('http://localhost:5000/auth/register', {
                 username,
                 password,
             });
+            console.log('Registration successful:', response.data);
             navigate('/login'); // Redirect to the login page after registration
         } catch (err) {
+            console.error('Registartion failed:', err);
             setError('Registration failed. Please try again.');
         }
     };
