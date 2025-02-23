@@ -5,19 +5,28 @@ import { createTask, deleteTask, getTasks, updateTask } from './Controllers/task
 import { authenticateToken } from './Middleware/middleware';
 
 const app = express();
+const port = 5000;
 
-app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests from this origin
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true, // Allow cookies and credentials
-}));
+// Enable CORS for requests from http://localhost:3000
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
+};
+app.use(cors(corsOptions));
 
 // Handle preflight requests for all routes
-app.options('*', cors());
+app.options('*', cors(corsOptions));
 
+// Parse JSON bodies
 app.use(express.json());
 
+// Test route
+app.get('/', (req, res) => {
+    res.send('Hello from backend');
+});
+
+// Your routes
 app.post('/auth/register', register);
 app.post('/auth/login', login);
 
@@ -26,5 +35,6 @@ app.post('/tasks', authenticateToken, createTask);
 app.put('/tasks/:id', authenticateToken, updateTask);
 app.delete('/tasks/:id', authenticateToken, deleteTask);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});

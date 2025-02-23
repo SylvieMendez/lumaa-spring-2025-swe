@@ -13,6 +13,10 @@ const Register: React.FC = () => {
             const response = await axios.post('http://localhost:5000/auth/register', {
                 username,
                 password,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json', // Ensure this header is set
+                },
             });
             console.log('Registration successful:', response.data);
             navigate('/login'); // Redirect to the login page after registration
