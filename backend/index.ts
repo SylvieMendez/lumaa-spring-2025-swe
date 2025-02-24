@@ -1,29 +1,27 @@
 import cors from 'cors';
+import dotenv from 'dotenv';
 import express from 'express';
 import { login, register } from './Controllers/authController';
 import { createTask, deleteTask, getTasks, updateTask } from './Controllers/taskController';
 import { authenticateToken } from './Middleware/middleware';
 
+dotenv.config();
+
 const app = express();
 const port = 5000;
 
-// Enable CORS for requests from http://localhost:3000
-const corsOptions = {
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
-};
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: true, // Allow requests from any origin during development
+  credentials: true, // Important for cookies/auth
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Content-Range', 'X-Content-Range']
+}));
 
-// Handle preflight requests for all routes
-app.options('*', cors(corsOptions));
-
-// Parse JSON bodies
 app.use(express.json());
 
-// Test route
 app.get('/', (req, res) => {
-    res.send('Hello from backend');
+  res.json('Hello from backend');
 });
 
 // Your routes

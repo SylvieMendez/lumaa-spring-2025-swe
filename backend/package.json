@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "kill -9 $(lsof -t -i :5000) || true && node index.js", 
+    "build": "tsc", 
+    "dev": "ts-node index.ts"
   },
   "keywords": [],
   "author": "",

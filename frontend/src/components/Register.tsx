@@ -8,12 +8,14 @@ const Register: React.FC = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleRegister = async () => {
+    const handleRegister = async (e: React.FormEvent) => {
+        e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/auth/register', {
                 username,
                 password,
             }, {
+                withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json', // Ensure this header is set
                 },
@@ -21,7 +23,7 @@ const Register: React.FC = () => {
             console.log('Registration successful:', response.data);
             navigate('/login'); // Redirect to the login page after registration
         } catch (err) {
-            console.error('Registartion failed:', err);
+            console.error('Registration failed:', err);
             setError('Registration failed. Please try again.');
         }
     };

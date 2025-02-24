@@ -38,6 +38,7 @@ export const register = async (req: AuthenticatedRequest, res: Response): Promis
     }
 };
 
+
 export const login = async (req: Request, res: Response): Promise<void> => {
     const { username, password } = req.body;
 
